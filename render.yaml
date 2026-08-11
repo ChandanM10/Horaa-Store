@@ -5,8 +5,8 @@ services:
     repo: https://github.com/ChandanM10/Horaa-Store.git
     dockerfilePath: ./backend/Dockerfile
     healthCheckPath: /api/health
-    region: singapore
-    plan: starter
+    region: oregon
+    plan: free
     envVars:
       - key: DATABASE_PATH
         value: /data/horaa.db
@@ -20,7 +20,3 @@ services:
         generateValue: true
       - key: CORS_ORIGINS
         value: https://horaa-store-nine.vercel.app
-    disk:
-      name: horaa-data
-      mountPath: /data
-      sizeGB: 1

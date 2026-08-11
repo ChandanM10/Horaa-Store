@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: horaa
+      POSTGRES_USER: horaa
+      POSTGRES_PASSWORD: change-me
+    ports: ["5432:5432"]
+    volumes: ["horaa_pg:/var/lib/postgresql/data"]
+volumes:
+  horaa_pg:

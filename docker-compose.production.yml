@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: horaa
+      POSTGRES_USER: horaa
+      POSTGRES_PASSWORD: change-this-password
+    volumes:
+      - horaa_pg:/var/lib/postgresql/data
+    ports: ["5432:5432"]
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      ADMIN_TOKEN: change-this-admin-token
+      DATABASE_PATH: /data/horaa.db
+      CORS_ORIGINS: http://localhost:3000
+    volumes: ["horaa_data:/data"]
+    ports: ["8000:8000"]
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: [backend]
+    ports: ["3000:3000"]
+volumes:
+  horaa_pg:
+  horaa_data:

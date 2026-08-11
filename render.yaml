@@ -4,6 +4,7 @@ services:
     runtime: docker
     repo: https://github.com/ChandanM10/Horaa-Store.git
     dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     healthCheckPath: /api/health
     region: oregon
     plan: free

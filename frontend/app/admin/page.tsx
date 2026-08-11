@@ -17,9 +17,8 @@ const blankBanner: Banner = {id:'',eyebrow:'',title:'',subtitle:'',button_text:'
 const errMsg=(d:any,fb:string):string=>{const det=d&&d.detail;if(typeof det==='string')return det;if(Array.isArray(det))return det.map((e:any)=>typeof e?.msg==='string'?e.msg:JSON.stringify(e)).join('; ');return fb};
 
 export default function Admin(){
-  const {user,token:sessionToken,logout,updateUser}=useAuth();
+  const {user,token:sessionToken,logout,updateUser,loading}=useAuth();
   const [token,setToken]=useState('');
-  const [input,setInput]=useState('');
   const [orders,setOrders]=useState<any[]>([]);
   const [products,setProducts]=useState<Product[]>([]);
   const [analytics,setAnalytics]=useState<any>(null);
@@ -100,7 +99,8 @@ export default function Admin(){
   const changePassword=async()=>{setSettingsMsg({kind:'',text:''});if(!pwd.current||!pwd.next){setSettingsMsg({kind:'err',text:'Fill in all password fields.'});return}if(pwd.next!==pwd.confirm){setSettingsMsg({kind:'err',text:'New passwords do not match.'});return}const r=await fetch(`${API}/api/auth/change-password`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({current_password:pwd.current,new_password:pwd.next})});const d=await r.json().catch(()=>({}));if(!r.ok){setSettingsMsg({kind:'err',text:errMsg(d,'Could not change password.')});return}setPwd({current:'',next:'',confirm:''});setSettingsMsg({kind:'ok',text:'Password changed.'})};
   const uploadAvatar=async(files:FileList|null)=>{if(!files||!files.length)return;setUploading(true);const fd=new FormData();fd.append('file',files[0]);const r=await fetch(`${API}/api/admin/upload`,{method:'POST',headers:{Authorization:`Bearer ${token}`},body:fd});const d=await r.json().catch(()=>({}));setUploading(false);if(!r.ok||!d.url){setSettingsMsg({kind:'err',text:errMsg(d,'Upload failed.')});return}const up=await fetch(`${API}/api/auth/me`,{method:'PATCH',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({name:user?.name||'Admin',phone:user?.phone||'',avatar:d.url})});const ud=await up.json().catch(()=>({}));if(up.ok)updateUser(ud);setSettingsMsg({kind:up.ok?'ok':'err',text:up.ok?'Avatar updated.':errMsg(ud,'Could not update avatar.')})};
 
-  if(!token)return <main className="admin-ui"><div className="au-login"><div className="au-brand au-login-brand"><img className="au-brand-logo" src="/assets/horaa-logo-clean.png" alt="HORAA"/><div><h1>HORAA STORE</h1><p>Management Portal</p></div></div><h2>Store dashboard</h2><p>Sign in with the administrator account, or use the ADMIN_TOKEN from your backend environment.</p><Link className="au-btn au-btn-primary" href="/login?admin=1">Sign in as Admin</Link><div className="au-or">or</div><input className="au-input" type="password" placeholder="Admin token" value={input} onChange={e=>setInput(e.target.value)}/><button className="au-btn au-btn-primary" onClick={()=>load(input)}>Open Dashboard</button>{error&&<div className="au-error">{error}</div>}</div></main>;
+  if(loading)return <main className="admin-ui"><div className="au-login"><p className="au-muted">Checking session…</p></div></main>;
+  if(!token)return <main className="admin-ui"><div className="au-login"><div className="au-brand au-login-brand"><img className="au-brand-logo" src="/assets/horaa-logo-clean.png" alt="HORAA"/><div><h1>HORAA STORE</h1><p>Management Portal</p></div></div><h2>Store dashboard</h2><p>Sign in with the administrator account to manage the store.</p><Link className="au-btn au-btn-primary" href="/login?admin=1">Sign in as Admin</Link>{error&&<div className="au-error">{error}</div>}</div></main>;
 
   const nav=[{id:'overview',icon:<LayoutDashboard size={18}/>,label:'Overview'},{id:'analysis',icon:<BarChart3 size={18}/>,label:'Analysis'},{id:'inventory',icon:<Package size={18}/>,label:'Inventory'},{id:'deals',icon:<Zap size={18}/>,label:'Deals'},{id:'banners',icon:<Megaphone size={18}/>,label:'Banners'},{id:'team',icon:<Users size={18}/>,label:'Team'},{id:'orders',icon:<ShoppingBag size={18}/>,label:'Orders'},{id:'settings',icon:<Settings size={18}/>,label:'Settings'}];
 

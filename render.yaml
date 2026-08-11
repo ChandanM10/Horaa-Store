@@ -17,7 +17,5 @@ services:
         generateValue: true
       - key: ADMIN_EMAIL
         value: itssinghchandan10@gmail.com
-      - key: ADMIN_PASSWORD
-        generateValue: true
       - key: CORS_ORIGINS
         value: https://horaa-store-nine.vercel.app

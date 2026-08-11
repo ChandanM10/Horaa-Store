@@ -14,7 +14,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 DB_PATH = Path(os.getenv('DATABASE_PATH', str(BASE / 'horaa.db')))
 ADMIN_TOKEN = os.getenv('ADMIN_TOKEN', 'change-me-in-production')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', 'itssinghchandan10@gmail.com')
-ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', '@chandan10')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD') or secrets.token_urlsafe(20)
 ADMIN_NAME = 'Horaa Admin'
 
 PRODUCTS = [

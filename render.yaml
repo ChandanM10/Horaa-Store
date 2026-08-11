@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: horaa-backend
+    runtime: docker
+    repo: https://github.com/ChandanM10/Horaa-Store.git
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /api/health
+    region: singapore
+    plan: starter
+    envVars:
+      - key: DATABASE_PATH
+        value: /data/horaa.db
+      - key: UPLOAD_DIR
+        value: /data/uploads
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: ADMIN_EMAIL
+        value: itssinghchandan10@gmail.com
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://horaa-store-nine.vercel.app
+    disk:
+      name: horaa-data
+      mountPath: /data
+      sizeGB: 1

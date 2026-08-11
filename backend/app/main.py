@@ -81,6 +81,12 @@ def init_db():
                 (p['id'],p['name'],p['category'],p['brand'],p['price'],p['stock'],now,p['slug'],p.get('compareAtPrice'),p.get('rating',4.5),p.get('reviews',0),p['shortSpec'],p['description'],json.dumps(p.get('images',[p['image']])),json.dumps(p.get('specs',{})),json.dumps(p.get('compatibility',{})),p.get('subcategory','')))
     if con.execute('SELECT COUNT(*) FROM coupons').fetchone()[0] == 0:
         con.executemany('INSERT INTO coupons VALUES (?,?,?,?,?)',[('HORAA10','percent',10,20000,1),('WELCOME2000','fixed',2000,30000,1)])
+    if con.execute('SELECT COUNT(*) FROM flash_deals').fetchone()[0] == 0:
+        now=datetime.now(timezone.utc).isoformat()
+        con.executemany('INSERT INTO flash_deals (product_id,deal_price,duration_hours,ends_at,active,created_at) VALUES (?,?,?,?,?,?)',[
+            ('gpu-4070ti',99999,72,(datetime.now(timezone.utc)+timedelta(hours=72)).isoformat(),1,now),
+            ('cpu-7800x3d',49999,48,(datetime.now(timezone.utc)+timedelta(hours=48)).isoformat(),1,now),
+        ])
     if con.execute('SELECT COUNT(*) FROM team_members').fetchone()[0] == 0:
         con.executemany('INSERT INTO team_members (id,name,role,bio,quote,photo,is_founder,sort_order) VALUES (?,?,?,?,?,?,?,?)',[
             ('founder','Bishal Sharma','Founder & CEO','','Building Horaa with a passion for technology that empowers human potential.','',1,1),

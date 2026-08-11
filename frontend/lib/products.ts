@@ -66,7 +66,7 @@ const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 let catalogCache: Product[] | null = null;
 let catalogInflight: Promise<Product[]> | null = null;
 
-export const imageSrc = (u?: string) => (u ? (u.startsWith('/') ? `${API}${u}` : u) : undefined);
+export const imageSrc = (u?: string) => (u ? (u.startsWith('/uploads/') ? `${API}${u}` : u) : undefined);
 
 const mapProduct = (p: any): Product => ({
   ...p,

@@ -1,4 +1,5 @@
-# HORAA STORE — Unified Full-Stack Project
+# HORAA STORE  <img src="frontend/public/assets/horaa-logo-clean.png" alt="Horaastore-logo" width="10%" />
+
 
 <p align="center">
   <img src="frontend/public/assets/HoraastoreHomepage.png" alt="Horaa Store — Homepage" width="100%" />

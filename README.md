@@ -1,5 +1,14 @@
 # HORAA STORE — Unified Full-Stack Project
 
+<p align="center">
+  <img src="frontend/public/assets/HoraastoreHomepage.png" alt="Horaa Store — Homepage" width="100%" />
+</p>
+
+<p align="center">
+  <img src="frontend/public/assets/dreampc.png" alt="Horaa Store — Dream PC Builder" width="49%" />
+  <img src="frontend/public/assets/products.png" alt="Horaa Store — Product Catalog" width="49%" />
+</p>
+
 Modern Nepal-focused PC hardware and electronics ecommerce platform built around the supplied Horaa Store design.
 
 ## Stack

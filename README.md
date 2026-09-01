@@ -1,4 +1,4 @@
-# HORAA STORE  <img src="frontend/public/assets/horaa-logo-clean.png" alt="Horaastore-logo" width="10%" />
+# HORAA STORE  <img src="frontend/public/assets/horaa-logo-clean.png" alt="Horaastore-logo" width="2%" />
 
 
 <p align="center">
